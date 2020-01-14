@@ -1,0 +1,11 @@
+$app-padding: 16px;
+$app-margin: 10px;
+
+.mat-toolbar-row {
+    height: auto;
+    padding: $app-padding $app-padding 0 $app-padding;
+}
+
+.mat-toolbar {
+    background-color: #ffffff;
+}

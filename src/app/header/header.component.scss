@@ -1,0 +1,16 @@
+@import '../app.component';
+
+.title {
+    font-size: xx-large;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.sub-title {
+    font-size: medium;
+}
+
+.separator {
+    margin-top: 0;
+    margin-left: $app-padding;
+}

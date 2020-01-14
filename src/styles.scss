@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+$page-margin: 20px;
+$font-stack: Roboto,
+"Helvetica Neue",
+sans-serif;
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin     : $page-margin;
+    font-family: $font-stack
+}
