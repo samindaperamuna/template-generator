@@ -1,10 +1,11 @@
 <mat-tab-group dynamicHeight="true">
-    <mat-tab label="One">
-        <quill-editor theme="snow">
-        </quill-editor>
+    <mat-tab label="Editor">
+        <form [formGroup]="editorForm">
+            <quill-editor formControlName="editor" [styles]="editorStyle" (onContentChanged)="editorContentChanged($event)">
+            </quill-editor>
+        </form>
     </mat-tab>
-    <mat-tab label="Two">
-        <h1>Some more text</h1>
-        <p>...</p>
+    <mat-tab label="Settings">
+        <app-settings></app-settings>
     </mat-tab>
 </mat-tab-group>
