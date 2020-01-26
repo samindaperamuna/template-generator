@@ -9,8 +9,8 @@ export class TemplateParserService {
   private queue = [];
   private subject = new Subject<string[]>();
 
-  public subscribe(observer: any): Subscription {
-    return this.subject.subscribe(observer);
+  public subscribe(...observer: any): Subscription {
+    return this.subject.subscribe(...observer);
   }
 
   /**
@@ -21,13 +21,6 @@ export class TemplateParserService {
    */
   addTemplateKeys(text: string): void {
     var templateStrings = this.returnUniqueKeys(text);
-
-    // Handles tht condition when the last template string is deleted.
-    if (templateStrings === null && this.queue.length) {
-      this.queue.length = 0;
-
-      this.subject.next(this.queue);
-    }
 
     // If the result is not null and there is a change since the last time,
     // then proceed with notifying subscribers.
@@ -64,15 +57,22 @@ export class TemplateParserService {
     return true;
   }
 
+  /**
+   * Get the unique keys in the given string.
+   *
+   * @param text String to analyze.
+   */
   private returnUniqueKeys(text: string): string[] {
     var keys = text.match(this.templateRegEx);
     var result = [];
 
-    keys.forEach(key => {
-      if (!result.includes(key)) {
-        result.push(key);
-      }
-    });
+    if (keys !== null) {
+      keys.forEach(key => {
+        if (!result.includes(key)) {
+          result.push(key);
+        }
+      });
+    }
 
     return result
   }

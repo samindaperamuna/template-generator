@@ -23,8 +23,8 @@ export class SettingsComponent {
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
 
   constructor(public dialog: MatDialog, private templateParserService: TemplateParserService) {
-    this.templateParserService.subscribe({
-      next(result: string[]) {
+    this.templateParserService.subscribe(
+      (result: string[]) => {
         if (result !== null) {
           this.dataSource = result;
 
@@ -35,10 +35,10 @@ export class SettingsComponent {
           }
         }
       },
-      error(error: Error) {
+      (error: Error) => {
         console.log(error.message);
       }
-    });
+    );
   }
 
   openDialog(action: any, obj: any) {
