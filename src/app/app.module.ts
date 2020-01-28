@@ -25,6 +25,8 @@ import { EditorComponent } from './editor/editor.component';
 import { SettingsComponent } from './settings/settings.component';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 
+import { StorageServiceModule } from 'ngx-webstorage-service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +58,8 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     MatInputModule,
     MatTableModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    StorageServiceModule
   ],
   entryComponents: [
     DialogBoxComponent

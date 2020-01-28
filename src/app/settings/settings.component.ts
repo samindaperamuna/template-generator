@@ -1,8 +1,10 @@
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input, OnChanges, SimpleChange, SimpleChanges, AfterViewInit } from '@angular/core';
 
 import { MatDialog, MatTable } from '@angular/material';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { TemplateParserService } from '../template-parser.service';
+import { LocalStorageService } from '../local-storage.service';
+import { FormControl } from '@angular/forms';
 
 export interface UserData {
   name: string;
@@ -14,15 +16,27 @@ export interface UserData {
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent {
+export class SettingsComponent implements AfterViewInit {
 
-  csvVisible: boolean = false;
+  csvVisible = false;
 
   private dataSource: string[];
 
-  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
+  private heightInput: FormControl;
+  private widthInput: FormControl;
 
-  constructor(public dialog: MatDialog, private templateParserService: TemplateParserService) {
+  constructor(
+    public dialog: MatDialog,
+    private templateParserService: TemplateParserService,
+    private localStorageService: LocalStorageService) {
+
+    this.heightInput = new FormControl();
+    this.widthInput = new FormControl();
+
+    this.heightInput.setValue(localStorageService.getHeight());
+    this.widthInput.setValue(localStorageService.getWidth());
+
+    // Subscribe to the template parse service.
     this.templateParserService.subscribe(
       (result: string[]) => {
         if (result !== null) {
@@ -39,6 +53,18 @@ export class SettingsComponent {
         console.log(error.message);
       }
     );
+  }
+
+  ngAfterViewInit() {
+    // Save the width and height.
+
+    this.heightInput.valueChanges.subscribe((change: number) => {
+      this.localStorageService.setHeight(change);
+    });
+
+    this.widthInput.valueChanges.subscribe((change: number) => {
+      this.localStorageService.setWidth(change);
+    });
   }
 
   openDialog(action: any, obj: any) {

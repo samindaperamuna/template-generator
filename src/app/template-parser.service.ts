@@ -68,6 +68,7 @@ export class TemplateParserService {
 
     if (keys !== null) {
       keys.forEach(key => {
+        key = key.slice(2, key.length - 2);
         if (!result.includes(key)) {
           result.push(key);
         }
