@@ -9,9 +9,10 @@ import { TemplateParserService } from '../template-parser.service';
 })
 export class EditorComponent implements OnInit {
 
-  editorForm: FormGroup;
+  height: number;
+  width: number;
 
-  editorStyle = { height: '300px', width: '500px' };
+  editorForm: FormGroup;
 
   constructor(private templateParserService: TemplateParserService) { }
 
@@ -21,10 +22,25 @@ export class EditorComponent implements OnInit {
     });
   }
 
-  editorContentChanged(event: any) {
+  onHeightChanged(event: number) {
+    this.height = event;
+  }
+
+  onWidthChanged(event: number) {
+    this.width = event;
+  }
+
+  onEditorContentChanged(event: any) {
     const text = event.text;
     if (text !== null || text !== '') {
       this.templateParserService.addTemplateKeys(text);
     }
+  }
+
+  setSize() {
+    return {
+      height: this.height + 'px',
+      width: this.width + 'px',
+    };
   }
 }
