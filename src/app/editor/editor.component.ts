@@ -39,6 +39,9 @@ export class EditorComponent implements OnInit {
 
   setSize() {
     return {
+      margin: 'auto',
+      marginTop: '10px',
+      borderTop: '1px solid #ccc',
       height: this.height + 'px',
       width: this.width + 'px',
     };

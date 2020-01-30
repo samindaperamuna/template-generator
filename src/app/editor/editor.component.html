@@ -2,6 +2,7 @@
   <mat-tab label="Editor">
     <form [formGroup]="editorForm">
       <quill-editor formControlName="editor" (onContentChanged)="onEditorContentChanged($event)" [styles]="setSize()">
+        <div quill-editor-element></div>
       </quill-editor>
     </form>
   </mat-tab>

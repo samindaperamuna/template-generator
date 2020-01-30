@@ -25,7 +25,10 @@ import { EditorComponent } from './editor/editor.component';
 import { SettingsComponent } from './settings/settings.component';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 
-import { StorageServiceModule } from 'ngx-webstorage-service';
+import Quill from 'quill';
+import BlotFormatter from 'quill-blot-formatter';
+
+Quill.register('modules/blotFormatter', BlotFormatter);
 
 @NgModule({
   declarations: [
@@ -47,7 +50,8 @@ import { StorageServiceModule } from 'ngx-webstorage-service';
           delay: 2000,
           maxStack: 500,
           userOnly: true
-        }
+        },
+        blotFormatter: {}
       }
     }),
     BrowserAnimationsModule,
@@ -58,8 +62,7 @@ import { StorageServiceModule } from 'ngx-webstorage-service';
     MatInputModule,
     MatTableModule,
     MatButtonModule,
-    MatDialogModule,
-    StorageServiceModule
+    MatDialogModule
   ],
   entryComponents: [
     DialogBoxComponent
