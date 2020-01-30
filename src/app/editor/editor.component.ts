@@ -14,6 +14,15 @@ export class EditorComponent implements OnInit {
 
   editorForm: FormGroup;
 
+  quillModules: {} = {
+    history: {
+      delay: 2000,
+      maxStack: 500,
+      userOnly: true
+    },
+    blotFormatter: {}
+  };
+
   constructor(private templateParserService: TemplateParserService) { }
 
   ngOnInit() {

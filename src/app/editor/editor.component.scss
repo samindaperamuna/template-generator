@@ -1,12 +1,12 @@
 @import '../app.component';
 
-.editor-component {
-    margin: auto;
-    margin-top: 10px;
-    border-top: 1px solid #ccc;
-}
-
 .mat-tab-group {
   padding-left: $app-padding;
   padding-right: $app-padding;
+}
+
+.ql-font {
+  .ql-picker {
+    width: 200px;
+  }
 }

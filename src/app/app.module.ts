@@ -30,6 +30,10 @@ import BlotFormatter from 'quill-blot-formatter';
 
 Quill.register('modules/blotFormatter', BlotFormatter);
 
+const font = Quill.import('formats/font');
+font.whitelist = ['roboto', 'roboto-condensed', 'roboto-mono', 'serif', 'nanum-pen'];
+Quill.register(font, true);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,16 +48,7 @@ Quill.register('modules/blotFormatter', BlotFormatter);
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    QuillModule.forRoot({
-      modules: {
-        history: {
-          delay: 2000,
-          maxStack: 500,
-          userOnly: true
-        },
-        blotFormatter: {}
-      }
-    }),
+    QuillModule.forRoot(),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatTabsModule,
