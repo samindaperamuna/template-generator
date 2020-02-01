@@ -34,6 +34,10 @@ const font = Quill.import('formats/font');
 font.whitelist = ['roboto', 'roboto-condensed', 'roboto-mono', 'serif', 'nanum-pen'];
 Quill.register(font, true);
 
+const size = Quill.import('attributors/style/size');
+size.whitelist = ['12px', '14px', '16px', '18px'];
+Quill.register(size, true);
+
 @NgModule({
   declarations: [
     AppComponent,

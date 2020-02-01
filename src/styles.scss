@@ -49,3 +49,21 @@ body {
 .ql-font-nanum-pen {
   font-family: 'Nanum Pen Script', cursive;
 }
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="14px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-label.ql-active[data-value="14px"]::before {
+  content: '14px';
+  font-size: 14px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="16px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-label.ql-active[data-value="16px"]::before {
+  content: '16px';
+  font-size: 16px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="18px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-label.ql-active[data-value="18px"]::before {
+  content: '18px';
+  font-size: 18px !important;
+}
