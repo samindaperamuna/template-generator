@@ -20,7 +20,7 @@ export class TemplateParserService {
    * @param text String to look for the template pattern.
    */
   addTemplateKeys(text: string): void {
-    var templateStrings = this.returnUniqueKeys(text);
+    const templateStrings = this.returnUniqueKeys(text);
 
     // If the result is not null and there is a change since the last time,
     // then proceed with notifying subscribers.
@@ -63,8 +63,8 @@ export class TemplateParserService {
    * @param text String to analyze.
    */
   private returnUniqueKeys(text: string): string[] {
-    var keys = text.match(this.templateRegEx);
-    var result = [];
+    const keys = text.match(this.templateRegEx);
+    const result = [];
 
     if (keys !== null) {
       keys.forEach(key => {
@@ -75,6 +75,6 @@ export class TemplateParserService {
       });
     }
 
-    return result
+    return result;
   }
 }

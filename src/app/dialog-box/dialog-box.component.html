@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>Row Action :: <strong>{{action}}</strong></h1>
-<div mat-dialog-content>
+<div mat-dialog-content *ngFor="let col of columnsToDisplay">
   <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-    <input placeholder="{{action}} Name" matInput [(ngModel)]="localData.name">
+    <input placeholder="{{col | titlecase}}" matInput [(ngModel)]="localData[col]">
   </mat-form-field>
   <ng-template #elseTemplate>
-    Sure to delete <b>{{localData.name}}</b>?
+    Sure to delete row <b>{{localData.index}}</b>
   </ng-template>
 </div>
 <div mat-dialog-actions>

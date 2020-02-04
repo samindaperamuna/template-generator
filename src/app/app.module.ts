@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +17,8 @@ import {
   MatInputModule,
   MatTableModule,
   MatButtonModule,
-  MatDialogModule
+  MatDialogModule,
+  MatSnackBarModule,
 } from '@angular/material';
 
 import { HeaderComponent } from './header/header.component';
@@ -50,6 +52,7 @@ Quill.register(size, true);
   imports: [
     BrowserModule,
     FormsModule,
+    CommonModule,
     ReactiveFormsModule,
     AppRoutingModule,
     QuillModule.forRoot(),
@@ -61,7 +64,8 @@ Quill.register(size, true);
     MatInputModule,
     MatTableModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   entryComponents: [
     DialogBoxComponent

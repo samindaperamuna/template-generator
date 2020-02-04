@@ -1,7 +1,5 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, Inject, Input, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
-import { UserData } from '../settings/settings.component';
 
 @Component({
   selector: 'app-dialog-box',
@@ -10,15 +8,17 @@ import { UserData } from '../settings/settings.component';
 })
 export class DialogBoxComponent {
 
-  action: string;
-  localData: any;
+  private action: string;
+  private columns: string[];
+  private localData: any;
 
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: UserData) {
-    console.log(data);
-    this.localData = { ...data };
-    this.action = this.localData.action;
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    this.localData = data.rowData;
+    this.columns = data.columns;
+    this.action = data.action;
   }
 
   doAction() {

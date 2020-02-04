@@ -1,38 +1,48 @@
 <div class="settings">
-    <div class="settings-basic">
-        <div>
-            <mat-form-field appearence="standard">
-                <mat-label>Editor height (px) :</mat-label>
-                <input [formControl]="heightInput" matInput type="number" placeholder="Height">
-            </mat-form-field>
-        </div>
-
-        <div>
-            <mat-form-field>
-                <mat-label>Editor width (px) :</mat-label>
-                <input [formControl]="widthInput" matInput type="number" placeholder="Width">
-            </mat-form-field>
-        </div>
+  <div class="settings-basic">
+    <div>
+      <mat-form-field appearence="standard">
+        <mat-label>Editor height (px) :</mat-label>
+        <input [formControl]="heightInput" matInput type="number" placeholder="Height">
+      </mat-form-field>
     </div>
-    <div *ngIf="csvVisible">
-        <!-- <button mat-button (click)="openDialog('Add', {})" mat-flat-button color="primary">Add Record</button> -->
 
-        <table mat-table [dataSource]="dataSource" class="my-table mat-elevation-z8">
-            <ng-container *ngFor="let col of datasource" matColumnDef="{{col}}">
-                <th mat-header-cell *matHeaderCellDef>{{col}}</th>
-                <td mat-cell *matCellDef="let col">{{col}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef>Action</th>
-                <td mat-cell *matCellDef="let element" class="action-link">
-                    <a (click)="openDialog('Update', element)">Edit</a>
-                    <a (click)="openDialog('Delete', element)">Delete</a>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="dataSource"></tr>
-            <tr mat-row *matRowDef="let row; columns: dataSource"></tr>
-        </table>
+    <div>
+      <mat-form-field>
+        <mat-label>Editor width (px) :</mat-label>
+        <input [formControl]="widthInput" matInput type="number" placeholder="Width">
+      </mat-form-field>
     </div>
+  </div>
+  <div class="csv-group" *ngIf="csvVisible">
+    <div class="csv-table-container">
+      <table mat-table [dataSource]="dataSource" #csvTable class="csv-table mat-elevation-z8">
+
+        <ng-container matColumnDef="index">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+          <mat-cell *matCellDef="let data; let i = index"> {{i + 1}} </mat-cell>
+        </ng-container>
+
+        <ng-container *ngFor="let col of columnNames" matColumnDef="{{col}}">
+          <mat-header-cell *matHeaderCellDef> {{col | titlecase}} </mat-header-cell>
+          <mat-cell *matCellDef="let data"> {{data[col]}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="action-link">
+            <a (click)="openDialog('Update', columnNames, element)"> Edit </a>
+            <a (click)="openDialog('Delete', element)"> Delete </a>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+      </table>
+    </div>
+    <div class="button-container">
+      <button mat-button (click)="openDialog('Add', columnNames)" mat-flat-button color="primary">Add Record</button>
+      <button mat-button mat-flat-button color="accent">Upload CSV</button>
+    </div>
+  </div>
 </div>

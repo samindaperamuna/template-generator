@@ -1,13 +1,9 @@
-import { AfterViewInit, Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Output, EventEmitter, OnInit, ViewChild, HostListener, Optional } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTable } from '@angular/material';
 import { LocalStorageService } from '../local-storage.service';
 import { TemplateParserService } from '../template-parser.service';
-
-export interface UserData {
-  name: string;
-  id: number;
-}
+import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 
 @Component({
   selector: 'app-settings',
@@ -16,9 +12,15 @@ export interface UserData {
 })
 export class SettingsComponent implements OnInit, AfterViewInit {
 
-  csvVisible = false;
+  private csvVisible = false;
 
-  private dataSource: string[];
+  @ViewChild('csvTable', { static: false })
+  private csvTable: MatTable<any>;
+
+  private dataSource = [];
+
+  private columnNames: string[];
+  private columnsToDisplay: string[];
 
   @Output()
   public heightChanged = new EventEmitter<number>();
@@ -38,9 +40,13 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.templateParserService.subscribe(
       (result: string[]) => {
         if (result !== null) {
-          this.dataSource = result;
+          this.columnNames = result;
 
-          if (this.dataSource && this.dataSource.length) {
+          this.columnsToDisplay = [...result];
+          this.columnsToDisplay.unshift('index');
+          this.columnsToDisplay.push('action');
+
+          if (this.columnNames && this.columnNames.length) {
             this.csvVisible = true;
           } else {
             this.csvVisible = false;
@@ -78,32 +84,31 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openDialog(action: any, obj: any) {
-    // obj.action = action;
+  openDialog(action: any, columns: string[], @Optional() rowData: any) {
+    const obj = { action, columns, rowData };
+    obj.action = action;
+    obj.columns = columns;
+    obj.rowData = rowData;
 
-    // const dialogRef = this.dialog.open(DialogBoxComponent, {
-    //   width: '250px',
-    //   data: obj
-    // });
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      width: '350px',
+      data: obj
+    });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result.event === 'Add') {
-    //     this.addRowData(result.data);
-    //   } else if (result.event === 'Update') {
-    //     this.updateRowData(result.data);
-    //   } else if (result.event === 'Delete') {
-    //     this.deleteRowData(result.data);
-    //   }
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.event === 'Add') {
+        this.addRowData(result.data);
+      } else if (result.event === 'Update') {
+        this.updateRowData(result.data);
+      } else if (result.event === 'Delete') {
+        this.deleteRowData(result.data);
+      }
+    });
   }
 
   addRowData(rowObj: any) {
-    // const d = new Date();
-    // this.dataSource.push({
-    //   id: d.getTime(),
-    //   name: rowObj.name
-    // });
-    // this.table.renderRows();
+    this.dataSource.push(rowObj);
+    this.csvTable.renderRows();
   }
 
   updateRowData(rowObj: any) {
@@ -116,8 +121,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   }
 
   deleteRowData(rowObj: any) {
-    // this.dataSource = this.dataSource.filter((value, key) => {
-    //   return value.id !== rowObj.id;
-    // });
+    this.dataSource = this.dataSource.filter((value, key) => {
+      return value.id !== rowObj.index;
+    });
   }
 }
