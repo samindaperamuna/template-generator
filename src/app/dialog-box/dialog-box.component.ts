@@ -16,7 +16,12 @@ export class DialogBoxComponent {
     public dialogRef: MatDialogRef<DialogBoxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    this.localData = data.rowData;
+    if (data.rowData) {
+      this.localData = data.rowData;
+    } else {
+      this.localData = [];
+    }
+
     this.columns = data.columns;
     this.action = data.action;
   }

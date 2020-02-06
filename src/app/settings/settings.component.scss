@@ -32,3 +32,14 @@
     margin-left: $app-margin;
   }
 }
+
+.action-link {
+  cursor: pointer;
+  color: $app-link-color;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.action-link:hover {
+  color: $app-link-hover-color;
+}

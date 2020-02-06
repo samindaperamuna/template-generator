@@ -84,22 +84,27 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openDialog(action: any, columns: string[], @Optional() rowData: any) {
-    const obj = { action, columns, rowData };
+  openDialog(action: any, columns: string[], @Optional() rowData: any, @Optional() index: number) {
+    const obj = { action, columns, rowData, index };
     obj.action = action;
     obj.columns = columns;
-    obj.rowData = rowData;
+
+    if (rowData) {
+      obj.rowData = rowData;
+
+      if (index !== undefined) {
+        obj.rowData.index = index;
+      }
+    }
 
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '350px',
+      width: '275px',
       data: obj
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'Add') {
         this.addRowData(result.data);
-      } else if (result.event === 'Update') {
-        this.updateRowData(result.data);
       } else if (result.event === 'Delete') {
         this.deleteRowData(result.data);
       }
@@ -111,18 +116,9 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.csvTable.renderRows();
   }
 
-  updateRowData(rowObj: any) {
-    // this.dataSource = this.dataSource.filter((value, key) => {
-    //   if (value.id === rowObj.id) {
-    //     value.name = rowObj.name;
-    //   }
-    //   return true;
-    // });
-  }
-
   deleteRowData(rowObj: any) {
-    this.dataSource = this.dataSource.filter((value, key) => {
-      return value.id !== rowObj.index;
+    this.dataSource = this.dataSource.filter(({ }, key) => {
+      return key !== rowObj.index;
     });
   }
 }

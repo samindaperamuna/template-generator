@@ -1,13 +1,13 @@
-<h1 mat-dialog-title>Row Action :: <strong>{{action}}</strong></h1>
-<div mat-dialog-content *ngFor="let col of columnsToDisplay">
-  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+<h2 mat-dialog-title>{{action}} Row Data</h2>
+<mat-dialog-content *ngFor="let col of columns">
+  <mat-form-field *ngIf="action != 'Delete'">
     <input placeholder="{{col | titlecase}}" matInput [(ngModel)]="localData[col]">
   </mat-form-field>
-  <ng-template #elseTemplate>
-    Sure to delete row <b>{{localData.index}}</b>
-  </ng-template>
-</div>
-<div mat-dialog-actions>
+</mat-dialog-content>
+<mat-dialog-content *ngIf="action == 'Delete'">
+  <span class="dialog-label">Are you sure to delete row <b>{{localData.index + 1}}</b>?</span>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
   <button mat-button (click)="doAction()">{{action}}</button>
   <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
-</div>
+</mat-dialog-actions>
