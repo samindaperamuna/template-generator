@@ -18,7 +18,6 @@ import {
   MatTableModule,
   MatButtonModule,
   MatDialogModule,
-  MatSnackBarModule,
 } from '@angular/material';
 
 import { HeaderComponent } from './header/header.component';
@@ -64,8 +63,7 @@ Quill.register(size, true);
     MatInputModule,
     MatTableModule,
     MatButtonModule,
-    MatDialogModule,
-    MatSnackBarModule
+    MatDialogModule
   ],
   entryComponents: [
     DialogBoxComponent

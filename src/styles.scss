@@ -18,6 +18,10 @@ body {
   font-family: $font-stack
 }
 
+[quill-editor-element] {
+  background-color: white;
+}
+
 [quill-editor-toolbar] .ql-font span[data-label="Roboto"]::before {
   font-family: 'Roboto', sans-serif;
 }
@@ -67,4 +71,3 @@ body {
   content: '18px';
   font-size: 18px !important;
 }
-

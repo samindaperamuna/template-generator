@@ -14,3 +14,36 @@
 .ql-picker.ql-font {
   width: 175px !important;
 }
+
+.toolbar-button {
+  background-size: 16px 16px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.ql-save {
+  @extend .toolbar-button;
+  background-image: url('../../assets/save_icon.png') !important;
+}
+
+.ql-export {
+  @extend .toolbar-button;
+  background-image: url('../../assets/export_icon.png') !important;
+}
+
+.ql-pdf {
+  @extend .toolbar-button;
+  background-image: url('../../assets/pdf_icon.png') !important;
+}
+
+.editor-container {
+  padding-top: $app-margin;
+  padding-bottom: $app-margin;
+  background-color: #e1e1e2;
+}
+
+.ql-toolbar {
+  margin-left: $app-margin;
+  margin-right: $app-margin;
+  background-color: #e8f9c0;
+}

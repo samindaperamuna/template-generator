@@ -1,9 +1,14 @@
 <mat-tab-group dynamicHeight="true">
   <mat-tab label="Editor">
-    <form [formGroup]="editorForm">
+    <form [formGroup]="editorForm" class="editor-container">
       <quill-editor formControlName="editor" (onContentChanged)="onEditorContentChanged($event)"
         [modules]="quillModules" [styles]="setSize()">
         <div quill-editor-toolbar>
+          <span class="ql-formats">
+            <button class="ql-save" (click)="saveDelta()"></button>
+            <button class="ql-pdf" (click)="exportPDF()"></button>
+            <button class="ql-export" (click)="exportImage()"></button>
+          </span>
           <span class="ql-formats">
             <select class="ql-font">
               <option value="roboto" selected>Roboto</option>

@@ -1,5 +1,9 @@
 @import '../app.component';
 
+.settings {
+  padding-top: $app-padding;
+}
+
 .csv-table {
   $margin: $app-margin * 4;
   width: calc(100% - #{$margin});
