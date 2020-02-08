@@ -5,10 +5,12 @@
         [modules]="quillModules" [styles]="setSize()">
         <div quill-editor-toolbar>
           <span class="ql-formats">
-            <button class="ql-save" (click)="saveDelta()"></button>
-            <button class="ql-pdf" (click)="exportPDF()"></button>
-            <button class="ql-export" (click)="exportImage()"></button>
+            <button class="open" (click)="openHTML()"></button>
+            <button class="save" (click)="saveHTML()"></button>
+            <button class="pdf" (click)="exportPDF()"></button>
+            <button class="export" (click)="exportImage()"></button>
           </span>
+          <span class=ql-seperator></span>
           <span class="ql-formats">
             <select class="ql-font">
               <option value="roboto" selected>Roboto</option>
@@ -55,6 +57,7 @@
         </div>
         <div quill-editor-element></div>
       </quill-editor>
+      <input type="file" #openFile accept="text/html" style="display:none;" (change)="readHTML($event)" />
     </form>
   </mat-tab>
   <mat-tab label="Settings">

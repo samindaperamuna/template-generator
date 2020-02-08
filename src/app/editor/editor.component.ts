@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TemplateParserService } from '../template-parser.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-editor',
@@ -11,6 +12,9 @@ export class EditorComponent implements OnInit {
 
   height: number;
   width: number;
+
+  @ViewChild('openFile', { static: false })
+  openFile: ElementRef<HTMLInputElement>;
 
   editorForm: FormGroup;
 
@@ -23,7 +27,7 @@ export class EditorComponent implements OnInit {
     blotFormatter: {}
   };
 
-  constructor(private templateParserService: TemplateParserService) { }
+  constructor(private templateParserService: TemplateParserService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.editorForm = new FormGroup({
@@ -54,5 +58,40 @@ export class EditorComponent implements OnInit {
       height: this.height + 'px',
       width: this.width + 'px',
     };
+  }
+
+  openHTML() {
+    const el: HTMLInputElement = this.openFile.nativeElement;
+    el.click();
+  }
+
+  readHTML(event: any) {
+    if (event.target.files[0]) {
+      const file: File = event.target.files[0];
+
+      if (file.type !== 'text/html') {
+        this.snackBar.open('Invalid file format.', 'Close', {
+          duration: 2000
+        });
+        return;
+      }
+
+      const reader = new FileReader();
+      const editor = this.editorForm.controls.editor;
+
+      reader.onload = (e: any) => {
+        editor.setValue(e.target.result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
+
+  saveHTML() {
+
+  }
+
+  restoreHTML() {
+
   }
 }

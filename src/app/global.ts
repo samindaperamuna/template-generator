@@ -1,4 +1,4 @@
 'use strict';
 
-export const appTitle = 'My Application';
-export const appSubitle = 'My Application subtitle!';
+export const appTitle = 'HTML Template Generator';
+export const appSubitle = 'Open, create, save and export HTML templates.';

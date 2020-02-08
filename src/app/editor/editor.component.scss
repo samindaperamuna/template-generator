@@ -21,17 +21,31 @@
   background-position: center !important;
 }
 
-.ql-save {
+.ql-seperator {
+  padding-right: $app-margin;
+  color: lightgray;
+}
+
+.ql-seperator::after {
+  content: "|";
+}
+
+.open {
+  @extend .toolbar-button;
+  background-image: url('../../assets/open_icon.png') !important;
+}
+
+.save {
   @extend .toolbar-button;
   background-image: url('../../assets/save_icon.png') !important;
 }
 
-.ql-export {
+.export {
   @extend .toolbar-button;
   background-image: url('../../assets/export_icon.png') !important;
 }
 
-.ql-pdf {
+.pdf {
   @extend .toolbar-button;
   background-image: url('../../assets/pdf_icon.png') !important;
 }
