@@ -58,6 +58,7 @@
         <div quill-editor-element></div>
       </quill-editor>
       <input type="file" #openFile accept="text/html" style="display:none;" (change)="readHTML($event)" />
+      <div #tempImgHolder style="display: none;"></div>
     </form>
   </mat-tab>
   <mat-tab label="Settings">

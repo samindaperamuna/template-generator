@@ -3,6 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { TemplateParserService } from '../template-parser.service';
 import { MatSnackBar } from '@angular/material';
 
+import jsPDF from 'jspdf';
+import FileSaver from 'file-saver';
+import { toBlob } from 'html-to-image';
+
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
@@ -15,6 +19,9 @@ export class EditorComponent implements OnInit {
 
   @ViewChild('openFile', { static: false })
   openFile: ElementRef<HTMLInputElement>;
+
+  @ViewChild('tempImgHolder', {static: true })
+  tempImgHolder: ElementRef<HTMLDivElement>;
 
   editorForm: FormGroup;
 
@@ -83,15 +90,33 @@ export class EditorComponent implements OnInit {
         editor.setValue(e.target.result);
       };
 
-      reader.readAsDataURL(file);
+      reader.readAsText(file);
     }
   }
 
   saveHTML() {
+    const editor = this.editorForm.controls.editor;
 
+    const blob = new Blob([editor.value], { type: 'text/html;charset="utf-8' });
+    FileSaver.saveAs(blob, 'quill-save.html');
   }
 
-  restoreHTML() {
+  exportPDF() {
+    const editor = this.editorForm.controls.editor;
 
+    const jspdf = new jsPDF({ orientation: 'portrait' });
+    jspdf.fromHTML(editor.value, 15, 15);
+    jspdf.save('quill-ps.pdf');
+  }
+
+  exportImage() {
+    const editor = this.editorForm.controls.editor;
+    this.tempImgHolder.nativeElement.innerHTML = editor.value;
+
+    toBlob(this.tempImgHolder.nativeElement).then(blob => {
+      FileSaver.saveAs(blob, 'quill-image.png');
+    });
+
+    this.tempImgHolder.nativeElement.innerHTML = '';
   }
 }
